@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Jonathan Green
+  description: Role for installing Hashbackup backup software
+  company: LYRASIS
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags:
+    - server
+    - backup
+    - hashbackup
+
+dependencies: []

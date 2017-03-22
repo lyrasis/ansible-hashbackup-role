@@ -1,0 +1,57 @@
+---
+
+- name: init backup directory
+  command:
+    hb init -c '{{ hb_backup_dir }}' -k '{{ hb_backup_key }}'
+  args:
+    creates: "{{ hb_backup_dir }}"
+
+- name: get backup configuration
+  command:
+    hb config -c '{{ hb_backup_dir }}' {{ item.key }}
+  always_run: true
+  changed_when: false
+  register: hb_current_config
+  with_dict: "{{ hb_backup_options }}"
+
+- name: set hb configuraiton options
+  command:
+    hb config -c '{{ hb_backup_dir }}' {{ item.1.key }} {{ item.1.value }}
+  with_together:
+    - "{{ hb_current_config.results|map(attribute='stderr')|list }}"
+    - "{{ hb_current_config.results|map(attribute='item')|list }}"
+  when: item.1.value|string not in item.0|string
+
+- name: copy templated exclude config
+  template:
+    backup: yes
+    dest: "{{ hb_backup_dir }}/inex.conf"
+    src: inex.conf.j2
+
+- name: copy templated destination config
+  template:
+    backup: yes
+    dest: "{{ hb_backup_dir }}/dest.conf"
+    src: dest.conf.j2
+  when: hb_backup_destination|length > 0
+
+- name: remove destination config if no options
+  file:
+    path: "{{ hb_backup_dir }}/dest.conf"
+    state: absent
+  when: hb_backup_destination|length == 0
+
+- name: make log directory
+  file:
+    path: "/var/log/hashbackup"
+    state: directory
+    owner: "{{ hb_user }}"
+    group: "{{ hb_user }}"
+  when: hb_symlink_log == True
+
+- name: make log directory link
+  file:
+    src: "/var/log/hashbackup"
+    dest: "{{ hb_backup_dir }}/logs"
+    state: link
+  when: hb_symlink_log == True

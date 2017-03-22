@@ -1,0 +1,6 @@
+{% for exclude in hb_backup_default_exclude %}
+ex {{ exclude }}
+{% endfor %}
+{% for exclude in hb_backup_exclude %}
+ex {{ exclude }}
+{% endfor %}

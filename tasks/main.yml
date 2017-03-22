@@ -1,0 +1,9 @@
+---
+
+- include: install.yml
+  tags:
+    - hb-install
+- include: config.yml
+  tags:
+    - hb-config
+  when: hb_config == True

@@ -1,0 +1,40 @@
+---
+
+- name: Get dependancies
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - bzip2
+    - wget
+    - sed
+
+- name: Make HashBackup directory
+  file:
+    path: "{{ hb_install_path }}"
+    state: directory
+    owner: "{{ hb_user }}"
+    group: "{{ hb_user }}"
+
+- name: Get HashBackup from BZ2
+  shell: >
+    wget -q -O - http://upgrade.hashbackup.com/latest/hb.{{ hb_install_type }}.bz2 | bzip2 -d > hb
+  args:
+    chdir: "{{ hb_install_path }}"
+    warn: false
+    creates: "{{ hb_install_path }}/hb"
+
+- name: Make HB Executable
+  file:
+    state: file
+    path: "{{ hb_install_path }}/hb"
+    mode: "u+xwr,g+xr,o+xr"
+    owner: "{{ hb_user }}"
+    group: "{{ hb_user }}"
+
+- name: Symlink HB into path
+  file:
+    state: link
+    src: "{{ hb_install_path }}/hb"
+    dest: "{{ hb_symlink_path }}/hb"
+  when: hb_symlink_path != ''
