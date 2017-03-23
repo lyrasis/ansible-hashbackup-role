@@ -9,7 +9,7 @@
 - name: get backup configuration
   command:
     hb config -c '{{ hb_backup_dir }}' {{ item.key }}
-  always_run: true
+  check_mode: no
   changed_when: false
   register: hb_current_config
   with_dict: "{{ hb_backup_options }}"
