@@ -1,0 +1,26 @@
+---
+
+- name: Add cron to upgrade HashBackup once a month
+  cron:
+    minute: "{{ hb_cron_update_minute }}"
+    hour: "{{ hb_cron_update_hour }}"
+    day: "{{ hb_cron_update_day }}"
+    month: "{{ hb_cron_update_month }}"
+    weekday: "{{ hb_cron_update_weekday }}"
+    user: "{{ hb_user }}"
+    name: HashBackup Upgrade Job
+    job: "{{hb_install_path}}/hb upgrade --force  > /dev/null 2>&1"
+
+- name: Add cron for HashBackup backup job
+  cron:
+    minute: "{{ hb_cron_backup_minute }}"
+    hour: "{{ hb_cron_backup_hour }}"
+    day: "{{ hb_cron_backup_day }}"
+    month: "{{ hb_cron_backup_month }}"
+    weekday: "{{ hb_cron_backup_weekday }}"
+    user: "{{ hb_user }}"
+    name: HashBackup Backup Job
+    job: >
+      {{hb_install_path}}/hb log backup -c {{ hb_backup_dir }} {{ hb_cron_backup_options }} {{ hb_cron_backup_paths|join(' ') }};
+      {{hb_install_path}}/hb log retain -c {{ hb_backup_dir }} {{ hb_cron_retain_options }};
+      {{hb_install_path}}/hb log selftest -c {{ hb_backup_dir }} {{ hb_cron_selftest_options }}

@@ -22,10 +22,13 @@ hb_user: root
 # If True then play will setup a HB backup configuration
 hb_config: true
 
+# True when role should setup cronjob for HB
+hb_cron: true
+
 # Directory to keep HB backup
 hb_backup_dir: /opt/hashbackup/backup
 
-# Key for HB Backup
+# Key for HB Backup.
 hb_backup_key: supersecret
 
 # Options to be set on backup. Key, Value are passed
@@ -60,3 +63,33 @@ hb_backup_destination: {}
 
 # Should backup log file by symlinked to /var/log
 hb_symlink_log: true
+
+# When should update cronjob run
+hb_cron_update_minute: "01"
+hb_cron_update_hour: "12"
+hb_cron_update_day: "1"
+hb_cron_update_month: "*"
+hb_cron_update_weekday: "*"
+
+# When should backup cronjob run
+hb_cron_backup_minute: "00"
+hb_cron_backup_hour: "2"
+hb_cron_backup_day: "*"
+hb_cron_backup_month: "*"
+hb_cron_backup_weekday: "*"
+
+# Paths to be backed up
+hb_cron_backup_paths:
+  - "/home"
+  - "/usr"
+
+# Extra options string to pass to backup command
+hb_cron_backup_options: ''
+
+# Options to be passed to retain command
+# See: http://www.hashbackup.com/commands/retain
+hb_cron_retain_options: '-s 14d12m -x 3m'
+
+# Options to be passed to selftest command
+# See: http://www.hashbackup.com/commands/selftest
+hb_cron_selftest_options: '-v2'

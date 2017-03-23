@@ -7,3 +7,8 @@
   tags:
     - hb-config
   when: hb_config == True
+- include: cron.yml
+  tags:
+    - hb-cron
+  when: hb_cron == True
+
