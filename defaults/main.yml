@@ -28,7 +28,7 @@ hb_cron: true
 # Directory to keep HB backup
 hb_backup_dir: /opt/hashbackup/backup
 
-# Key for HB Backup.
+# Key for HB Backup. This should be as long as possible for security.
 hb_backup_key: supersecret
 
 # Options to be set on backup. Key, Value are passed
