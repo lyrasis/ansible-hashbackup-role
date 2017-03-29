@@ -84,12 +84,16 @@ hb_cron_backup_paths:
   - "/usr"
 
 # Extra options string to pass to backup command
-hb_cron_backup_options: ''
+hb_cron_backup_options: ""
 
 # Options to be passed to retain command
 # See: http://www.hashbackup.com/commands/retain
-hb_cron_retain_options: '-s 14d12m -x 3m'
+hb_cron_retain_options: "-s 14d12m -x 3m"
 
 # Options to be passed to selftest command
 # See: http://www.hashbackup.com/commands/selftest
-hb_cron_selftest_options: '-v2'
+hb_cron_selftest_options: "-v2"
+
+# Optional arguements to add to cron. Could do something like:
+# > /dev/null 2>&1
+hb_cron_extra_commands: ""
