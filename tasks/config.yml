@@ -20,7 +20,7 @@
   with_together:
     - "{{ hb_current_config.results|map(attribute='stderr')|list }}"
     - "{{ hb_current_config.results|map(attribute='item')|list }}"
-  when: item.1.value|string not in item.0|string
+  when: item.0|regex_replace('.+? (.*)','\\1') != item.1.value|string
 
 - name: copy templated exclude config
   template:

@@ -3,12 +3,15 @@
 - include: install.yml
   tags:
     - hb-install
+    - hb
 - include: config.yml
   tags:
     - hb-config
+    - hb
   when: hb_config == True
 - include: cron.yml
   tags:
     - hb-cron
+    - hb
   when: hb_cron == True
 
