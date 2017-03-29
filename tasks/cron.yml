@@ -21,8 +21,8 @@
     user: "{{ hb_user }}"
     name: HashBackup Backup Job
     job: >
-    (
+      (
       {{ hb_install_path }}/hb log backup -c {{ hb_backup_dir }} {{ hb_cron_backup_options }} {{ hb_cron_backup_paths|join(' ') }};
       {{ hb_install_path }}/hb log retain -c {{ hb_backup_dir }} {{ hb_cron_retain_options }};
       {{ hb_install_path }}/hb log selftest -c {{ hb_backup_dir }} {{ hb_cron_selftest_options }};
-    ) {{ hb_cron_extra_commands }}
+      ) {{ hb_cron_extra_commands }}
