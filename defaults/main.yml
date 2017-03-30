@@ -52,14 +52,14 @@ hb_backup_default_exclude:
 hb_backup_exclude:
   - "{{ hb_install_path }}"
 
-# Configuration for HB dest.conf. These key, value pairs are used
-# directly in the dest.conf file.
-hb_backup_destination: {}
-#  DestName: my-s3
-#  Type: s3
-#  Accesskey xxx
-#  Secretkey xxx
-#  Bucket xxx
+# Configuration for HB dest.conf. This list of dictionary with key, value
+# pairs are used directly in the dest.conf file.
+hb_backup_destination: []
+#  - [ DestName, my-s3 ]
+#  - [ Type, s3 ]
+#  - [ Accesskey, xxx ]
+#  - [ Secretkey, xxx ]
+#  - [ Bucket, xxx ]
 
 # Should backup log file by symlinked to /var/log
 hb_symlink_log: true
