@@ -40,18 +40,3 @@
     path: "{{ hb_backup_dir }}/dest.conf"
     state: absent
   when: hb_backup_destination|length == 0
-
-- name: make log directory
-  file:
-    path: "/var/log/hashbackup"
-    state: directory
-    owner: "{{ hb_user }}"
-    group: "{{ hb_user }}"
-  when: hb_symlink_log == True
-
-- name: make log directory link
-  file:
-    src: "/var/log/hashbackup"
-    dest: "{{ hb_backup_dir }}/logs"
-    state: link
-  when: hb_symlink_log == True
