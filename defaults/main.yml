@@ -64,6 +64,9 @@ hb_backup_destination: []
 # Should backup log file by symlinked to /var/log
 hb_symlink_log: true
 
+# Should a cron job be added to clean up backups
+hb_cleanup_log: true
+
 # When should update cronjob run
 hb_cron_update_minute: "01"
 hb_cron_update_hour: "12"

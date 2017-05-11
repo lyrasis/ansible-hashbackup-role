@@ -9,6 +9,11 @@
     - hb-config
     - hb
   when: hb_config == True
+- include: logging.yml
+  tags:
+    - hb-loggging
+    - hb
+  when: hb_symlink_log == True
 - include: cron.yml
   tags:
     - hb-cron
