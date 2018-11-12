@@ -1,20 +1,20 @@
 ---
 
-- include: install.yml
+- import_tasks: install.yml
   tags:
     - hb-install
     - hb
-- include: config.yml
+- import_tasks: config.yml
   tags:
     - hb-config
     - hb
   when: hb_config == True
-- include: logging.yml
+- import_tasks: logging.yml
   tags:
     - hb-loggging
     - hb
   when: hb_symlink_log == True
-- include: cron.yml
+- import_tasks: cron.yml
   tags:
     - hb-cron
     - hb
