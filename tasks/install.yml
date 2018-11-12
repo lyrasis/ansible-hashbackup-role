@@ -2,12 +2,11 @@
 
 - name: Get dependancies
   apt:
-    name: "{{ item }}"
+    name:
+      - bzip2
+      - wget
+      - sed
     update_cache: yes
-  with_items:
-    - bzip2
-    - wget
-    - sed
 
 - name: Make HashBackup directory
   file:
